@@ -1,4 +1,10 @@
+CC:=gcc
+Cflags:= -g -Wall
+
 all:s_tree.c
-	gcc s_tree.c -o s_tree.out
+	$(CC) main.c -o main.out
+
+bench:
+
 clean:
-	rm -f s_tree.out
+	rm -f main.out
