@@ -29,17 +29,17 @@ int main(int argc, char *argv[])
         fprintf(stderr, "Open bench result file failed\n");
         exit(-1);
     }
-
+    
     int node_nums = atoi(argv[2]);
     srand(time(0));
+    static struct st_root *tree_t;
 
-    treeint_init();
-
+    treeint_init(&tree_t);
     for (int i = 0; i < 100; ++i)
-        treeint_insert(rand() % 99);
+        treeint_insert(tree_t, rand() % 99);
 
     printf("[ After insertions ]\n");
-    treeint_dump();
+    treeint_dump(tree_t);
 
     printf("Removing...\n");
     for (int i = 0; i < 100; ++i) {
@@ -47,14 +47,14 @@ int main(int argc, char *argv[])
         printf("%2d  ", v);
         if ((i + 1) % 10 == 0)
             printf("\n");
-        treeint_remove(v);
+        treeint_remove(tree_t, v);
     }
     printf("\n");
 
     printf("[ After removals ]\n");
-    treeint_dump();
+    treeint_dump(tree_t);
 
-    treeint_destroy();
+    treeint_destroy(tree_t);
 
     return 0;
 }

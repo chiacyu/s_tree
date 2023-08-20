@@ -1,8 +1,8 @@
 #include "s_treeinit.h"
 
-int treeint_init(struct st_root *tree)
+int treeint_init(struct st_root **tree)
 {
-    tree = calloc(sizeof(struct st_root), 1);
+    *tree = calloc(sizeof(struct st_root), 1);
     assert(tree);
     return 0;
 }
@@ -19,7 +19,7 @@ static void __treeint_destroy(struct st_node *n)
     free(i);
 }
 
-int treeint_destroy()
+int treeint_destroy(struct st_root *tree)
 {
     assert(tree);
     if (st_root(tree))
@@ -29,7 +29,7 @@ int treeint_destroy()
     return 0;
 }
 
-struct treeint *treeint_insert(int a)
+struct treeint *treeint_insert(struct st_root *tree, int a)
 {
     struct st_node *p = NULL;
     enum st_dir d;
@@ -76,7 +76,7 @@ struct treeint *treeint_find(int a)
     return 0;
 }
 
-int treeint_remove(int a)
+int treeint_remove(struct st_root *tree, int a)
 {
     struct treeint *n = treeint_find(a);
     if (!n)
@@ -101,7 +101,7 @@ static void __treeint_dump(struct st_node *n, int depth)
     __treeint_dump(st_right(n), depth + 1);
 }
 
-void treeint_dump()
+void treeint_dump(struct st_root *tree)
 {
     __treeint_dump(st_root(tree), 0);
 }
